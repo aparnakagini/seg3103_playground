@@ -7,4 +7,3 @@ Instructions for Running the Java Code: Run Main.java in VS Code Terminal. First
 Instructions for Running the Python Code: Open newmath_py in the terminal. Enter './bin/run' in the terminal. Type in newmath.div(6,3) in the terminal and 2.0 will be the output. Next, enter newmath.div(6,0) and there will be a ZeroDivisionError.
 
 Instructions for Running the Elixir Code: Open newmath_ex in the terminal. Enter iex -S mix and then NewmathEx.div(5,2). The output will be 2.5. Next, enter NewmathEx.div(5,0) and the output will be "Cannot divide by zero".
-
