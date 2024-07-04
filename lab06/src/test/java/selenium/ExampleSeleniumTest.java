@@ -77,6 +77,13 @@ class ExampleSeleniumTest {
     assertEquals(expected, getWords(actual)[0]);
   }
 
+  // Additional Test
+  @Test
+  public void testSearchButtonPresence() {
+    WebElement searchButton = driver.findElement(By.cssSelector("input[type='submit']"));
+    assertNotNull(searchButton, "Search button should be present on the home page");
+  }
+
   private String[] getWords(String s) {
     return s.split("\\s+");
   }
