@@ -3,8 +3,9 @@ defmodule Grades.Calculator do
     avg_homework = avg(homework)
     avg_labs = avg(labs)
 
-    mark = calculate_grade(avg_labs, avg_homework, midterm, final)
-    round(mark * 100)
+    # Refactored for Q2.4 - Using calculate_mark and round_to_percentage methods
+    mark = calculate_mark(%{homework: homework, labs: labs, midterm: midterm, final: final})
+    round_to_percentage(mark)
   end
 
   def letter_grade(%{homework: homework, labs: labs, midterm: midterm, final: final}) do
@@ -17,7 +18,7 @@ defmodule Grades.Calculator do
     if failed_to_participate?(avg_homework, avg_exams, num_labs) do
       "EIN"
     else
-      mark = calculate_grade(avg_labs, avg_homework, midterm, final)
+      mark = calculate_mark(%{homework: homework, labs: labs, midterm: midterm, final: final})
 
       cond do
         mark > 0.895 -> "A+"
@@ -45,7 +46,7 @@ defmodule Grades.Calculator do
     if failed_to_participate?(avg_homework, avg_exams, num_labs) do
       0
     else
-      mark = calculate_grade(avg_labs, avg_homework, midterm, final)
+      mark = calculate_mark(%{homework: homework, labs: labs, midterm: midterm, final: final})
 
       cond do
         mark > 0.895 -> 10
@@ -84,5 +85,17 @@ defmodule Grades.Calculator do
   defp calculate_grade(avg_labs, avg_homework, midterm, final) do
     0.2 * avg_labs + 0.3 * avg_homework + 0.2 * midterm + 0.3 * final
   end
-  
+
+  # Refactored for Q2.4 - Added calculate_mark method
+  defp calculate_mark(%{homework: homework, labs: labs, midterm: midterm, final: final}) do
+    avg_homework = avg(homework)
+    avg_labs = avg(labs)
+    calculate_grade(avg_labs, avg_homework, midterm, final)
+  end
+
+  # Refactored for Q2.4 - Added round_to_percentage method
+  defp round_to_percentage(mark) do
+    round(mark * 100)
+  end
+
 end
