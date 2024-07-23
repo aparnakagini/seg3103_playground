@@ -3,7 +3,6 @@ package selenium;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
-
 import java.util.concurrent.TimeUnit;
 import java.time.Duration;
 
@@ -75,6 +74,42 @@ class ExampleSeleniumTest {
     expected = "Bienvenu";
     actual = welcome.getText();
     assertEquals(expected, getWords(actual)[0]);
+  }
+
+  void loginAsAdmin() {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    try {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("login")));
+    } catch (Exception e) {
+        System.out.println("Page Source: " + driver.getPageSource());
+        throw e;
+    }
+
+    // Attempting with different locators
+    WebElement loginInput;
+    try {
+        loginInput = driver.findElement(By.name("login"));
+    } catch (Exception e) {
+        System.out.println("Trying with id locator");
+        loginInput = driver.findElement(By.id("login"));
+    }
+
+    try {
+        WebElement loginInputByCss = driver.findElement(By.cssSelector("input[name='login']"));
+        loginInputByCss.sendKeys("admin");
+    } catch (Exception e) {
+        System.out.println("CSS Selector not found");
+    }
+
+    loginInput.sendKeys("admin");
+
+    WebElement passwordInput = driver.findElement(By.name("password"));
+    passwordInput.sendKeys("admin");
+
+    WebElement loginButton = driver.findElement(By.name("submit"));
+    loginButton.click();
+
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("admin-dashboard")));
   }
 
   private String[] getWords(String s) {
